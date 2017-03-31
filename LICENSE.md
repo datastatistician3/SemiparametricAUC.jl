@@ -1,6 +1,7 @@
 The SemiparametricAUC.jl package is licensed under the MIT "Expat" License:
 
-> Copyright (c) 2017: Som Bohora.
+> Copyright (c) 2017:
+>  * Som Bohora
 > 
 > 
 > Permission is hereby granted, free of charge, to any person obtaining a copy
