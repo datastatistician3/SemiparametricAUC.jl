@@ -29,13 +29,11 @@ function sAUC(; x::DataFrames.Formula = nothing, treatment_group::Symbol = nothi
   set1 = Dict()
   for i in 1:Int(0.5*length(grouped_d))
     set1[i] = grouped_d[i]
-    println(i)
   end
 
   set2 = Dict()
   for i in Int(0.5*length(grouped_d)) + 1:length(grouped_d)
     set2[i] = grouped_d[i]
-    println(i)
   end
 
   logitauchat_matrix = collect(calculate_auc(ya = set1[i][:,input_response], yb = set2[i+length(set2)][:,input_response])
