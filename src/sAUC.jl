@@ -1,5 +1,8 @@
 
-function sAUC(; x::DataFrames.Formula = nothing, treatment_group::Symbol = nothing, data::DataFrames.DataFrame = nothing)
+function sAUC(; x::DataFrames.Formula = throw(ArgumentError("Argument x is missing")),
+  treatment_group::Symbol = throw(ArgumentError("Argument treatment_group is missing")),
+  data::DataFrames.DataFrame = throw(ArgumentError("Argument data is missing")))
+
   if (isa(x, Formula))
     input_covariates = DataFrames.Terms(x).terms
     n1 = length(input_covariates)
@@ -10,6 +13,7 @@ function sAUC(; x::DataFrames.Formula = nothing, treatment_group::Symbol = nothi
   if (!isa(treatment_group, Symbol))
     error("The parameter treatment_group should be Symbol object. For e.g. :x1")
   end
+  
   if (!isa(data, DataFrames.DataFrame))
     error("The parameter data should be DataFrames.DataFrame object.")
   end
