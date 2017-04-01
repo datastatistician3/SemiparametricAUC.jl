@@ -83,6 +83,7 @@ function sAUC(; x::DataFrames.Formula = nothing, treatment_group::Symbol = nothi
 
   function coeftable(betass = betas, std_errors = std_error)
   zz = betass ./ std_errors
+  result = (CoefTable(hcat(round(betass,4),lo,up,round(std_errors,4),round(zz,4),2.0 * ccdf(Normal(), abs.(zz))),
              ["Estimate","2.5%","97.5%","Std.Error","z value", "Pr(>|z|)"],
            ["$i" for i = coefnames(mf)], 4))
   return(result)
