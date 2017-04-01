@@ -1,3 +1,4 @@
+# Example
 "Calcualtes AUC related estimates"
 function calculate_auc(; ya::DataArrays.DataArray = nothing, yb::DataArrays.DataArray = nothing)
   m = length(ya)
@@ -27,3 +28,5 @@ function calculate_auc(; ya::DataArrays.DataArray = nothing, yb::DataArrays.Data
     var_logitauchat = vhat_auchat /((auchat^2)*(1-auchat)^2)
     return((var_logitauchat, logitauchat))
 end
+
+calculate_auc(ya = DataArray([2,3]), yb = DataArray([3,2,1]))

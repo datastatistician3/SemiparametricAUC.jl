@@ -1,7 +1,7 @@
 using DataFrames
 using SemiparametricAUC
 # Data analysis examples
-fasd = DataFrames.readtable("C:\\Users\\sbohora\\AppData\\Local\\JuliaPro-0.5.1.1\\pkgs-0.5.1.1\\v0.5\\SemiparametricAUC\\data\\one_final.csv")
+fasd = DataFrames.readtable(joinpath(Pkg.dir("SemiparametricAUC"), "data/fasd.csv"))
 # fasd = readtable("ds.csv")
 
 # Define factor/categorical variable
