@@ -1,10 +1,10 @@
 module SemiparametricAUC
 
 # package code goes here
-using DataFrames
 using Distributions
 using DataArrays
-using Iterators
+using DataFrames
+import Iterators: product
 import Base: log, mean, var, zeros, length, isa, values, sort, inv, diagm, sqrt, diag,hcat
 
 include("calculate-auc.jl")

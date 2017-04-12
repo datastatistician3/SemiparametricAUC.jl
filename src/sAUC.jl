@@ -1,19 +1,19 @@
 
-function sAUC(; x::DataFrames.Formula = throw(ArgumentError("Argument x is missing")),
+function sAUC(; model_formula::DataFrames.Formula = throw(ArgumentError("Argument model_formula is missing")),
   treatment_group::Symbol = throw(ArgumentError("Argument treatment_group is missing")),
   data::DataFrames.DataFrame = throw(ArgumentError("Argument data is missing")))
 
-  if (isa(x, Formula))
-    input_covariates = DataFrames.Terms(x).terms
+  if (isa(model_formula, Formula))
+    input_covariates = DataFrames.Terms(model_formula).terms
     n1 = length(input_covariates)
-    input_response = DataFrames.Terms(x).eterms[1]
-  else error("Please put response and input as DataFrames.Formula object. For example, x = response ~ x1 + x2")
+    input_response = DataFrames.Terms(model_formula).eterms[1]
+  else error("Please put response and input as DataFrames.Formula object. For example, model_formula = response ~ x1 + x2")
   end
 
   if (!isa(treatment_group, Symbol))
     error("The parameter treatment_group should be Symbol object. For e.g. :x1")
   end
-  
+
   if (!isa(data, DataFrames.DataFrame))
     error("The parameter data should be DataFrames.DataFrame object.")
   end
@@ -69,7 +69,7 @@ function sAUC(; x::DataFrames.Formula = throw(ArgumentError("Argument x is missi
   end
 
   # model.matrix using DataFrames (ModelMatrix)
-  mf = ModelFrame(DataFrames.Terms(x), df_from_tuple)
+  mf = ModelFrame(DataFrames.Terms(model_formula), df_from_tuple)
   mm = ModelMatrix(mf)
 
   Z = mm.m
@@ -88,7 +88,7 @@ function sAUC(; x::DataFrames.Formula = throw(ArgumentError("Argument x is missi
   function coeftable(betass = betas, std_errors = std_error)
   zz = betass ./ std_errors
   result = (CoefTable(hcat(round(betass,4),lo,up,round(std_errors,4),round(zz,4),2.0 * ccdf(Normal(), abs.(zz))),
-             ["Estimate","2.5%","97.5%","Std.Error","z value", "Pr(>|z|)"],
+             ["Estimate","2.5%","97.5%","Std.Error","t value", "Pr(>|t|)"],
            ["$i" for i = coefnames(mf)], 4))
   return(result)
   end
