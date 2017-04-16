@@ -1,5 +1,5 @@
 
-function sAUC(; model_formula::DataFrames.Formula = throw(ArgumentError("Argument model_formula is missing")),
+function semiparametricAUC(; model_formula::DataFrames.Formula = throw(ArgumentError("Argument model_formula is missing")),
   treatment_group::Symbol = throw(ArgumentError("Argument treatment_group is missing")),
   data::DataFrames.DataFrame = throw(ArgumentError("Argument data is missing")))
 

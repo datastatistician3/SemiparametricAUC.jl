@@ -12,7 +12,7 @@ include("sAUC.jl")
 include("simulation-one-predtictor.jl")
 
 export calculate_auc
-export sAUC
+export semiparametricAUC
 export calculate_auc_simulation
 export simulate_one_predictor
 
