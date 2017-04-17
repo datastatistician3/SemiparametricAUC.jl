@@ -30,13 +30,14 @@ function semiparametricAUC(; model_formula::DataFrames.Formula = throw(ArgumentE
   # split by factors
   grouped_d = DataFrames.groupby(data, group_covariates)
 
+  half_data = 0.5
   set1 = Dict()
-  for i in 1:Int(0.5*length(grouped_d))
+  for i in 1:Int(half_data*length(grouped_d))
     set1[i] = grouped_d[i]
   end
 
   set2 = Dict()
-  for i in Int(0.5*length(grouped_d)) + 1:length(grouped_d)
+  for i in Int(half_data*length(grouped_d)) + 1:length(grouped_d)
     set2[i] = grouped_d[i]
   end
 
