@@ -28,6 +28,7 @@ function semiparametricAUC(; model_formula::DataFrames.Formula = throw(ArgumentE
 
   print_with_color(:red,"Data are being analyzed. Please, be patient.\n\n")
   # split by factors
+  # TO-DO: make sure that oerder of the variables are aligned with order of coefnames(mf)
   grouped_d = DataFrames.groupby(data, group_covariates)
 
   half_data = 0.5
@@ -88,9 +89,11 @@ function semiparametricAUC(; model_formula::DataFrames.Formula = throw(ArgumentE
 
   function coeftable(betass = betas, std_errors = std_error)
   zz = betass ./ std_errors
+  level_names = ["Intercept", "x2: 2", "x1: 2"]
   result = (CoefTable(hcat(round(betass,4),lo,up,round(std_errors,4),round(zz,4),2.0 * ccdf(Normal(), abs.(zz))),
              ["Estimate","2.5%","97.5%","Std.Error","t value", "Pr(>|t|)"],
-           ["$i" for i = coefnames(mf)], 4))
+           ["$i" for i = level_names], 4))
+  # coefnames(mf)
   return(result)
   end
   return(coeftable())
