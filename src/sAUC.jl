@@ -2,11 +2,15 @@
 function semiparametricAUC(; model_formula::DataFrames.Formula = throw(ArgumentError("Argument model_formula is missing")),
   treatment_group::Symbol = throw(ArgumentError("Argument treatment_group is missing")),
   data::DataFrames.DataFrame = throw(ArgumentError("Argument data is missing")))
-
+  # fasd = DataFrames.readtable(joinpath(Pkg.dir("SemiparametricAUC"), "data/fasd.csv"))
+  # model_formula = y ~ x1 + x2
+  # treatment_group = :group
+  # data = fasd
+  
   if (isa(model_formula, Formula))
     input_covariates = DataFrames.Terms(model_formula).terms
     n1 = length(input_covariates)
-    input_response = DataFrames.Terms(model_formula).eterms[1]
+    input_response = Symbol(DataFrames.Terms(model_formula).eterms[1])
   else error("Please put response and input as DataFrames.Formula object. For example, model_formula = response ~ x1 + x2")
   end
 
@@ -18,7 +22,7 @@ function semiparametricAUC(; model_formula::DataFrames.Formula = throw(ArgumentE
     error("The parameter data should be DataFrames.DataFrame object.")
   end
   input_treatment = Symbol(treatment_group)
-  group_covariates = vcat(input_treatment, input_covariates)
+  group_covariates = vcat(input_covariates, input_treatment)
 
   if (sum([isa(data[:,i], DataFrames.PooledDataArray) for i in group_covariates]) == 0)
     error("Please put response and input as formula. For example, response ~ x1 + x2")
@@ -29,21 +33,25 @@ function semiparametricAUC(; model_formula::DataFrames.Formula = throw(ArgumentE
   print_with_color(:red,"Data are being analyzed. Please, be patient.\n\n")
   # split by factors
   # TO-DO: make sure that oerder of the variables are aligned with order of coefnames(mf)
-  grouped_d = DataFrames.groupby(data, group_covariates)
+  ds = data[vcat(input_response,Symbol.(group_covariates))]
+  grouped_d = DataFrames.groupby(ds, group_covariates)
 
   half_data = 0.5
-  set1 = Dict()
-  for i in 1:Int(half_data*length(grouped_d))
+  set1 =  Dict()
+  for i in 1:2:length(grouped_d)
     set1[i] = grouped_d[i]
   end
+  set1_sorted = DataStructures.SortedDict(set1)
 
   set2 = Dict()
-  for i in Int(half_data*length(grouped_d)) + 1:length(grouped_d)
+  for i in 2:2:length(grouped_d)
     set2[i] = grouped_d[i]
   end
+  set2_sorted = DataStructures.SortedDict(set2)
 
-  logitauchat_matrix = collect(calculate_auc(ya = set1[i][:,input_response], yb = set2[i+length(set2)][:,input_response])
-    for i in 1:length(set1))
+  # TO-DO: make sure that oerder of the variables are aligned with order of coefnames(mf)
+  logitauchat_matrix = collect(calculate_auc(ya = set1_sorted[i][:,input_response], yb = set2_sorted[i+1][:,input_response])
+    for i in 1:2:length(grouped_d))
 
   dff = DataFrames.DataFrame([y[i] for y in logitauchat_matrix, i in 1:length(logitauchat_matrix[1])])
   var_logitauchat = dff[1]
@@ -53,14 +61,15 @@ function semiparametricAUC(; model_formula::DataFrames.Formula = throw(ArgumentE
   # get levels
   dict_levels = Dict()
   for i in 1:length(input_covariates)
-    dict_levels[i] = DataArrays.levels(data[input_covariates[i]])
+    dict_levels[i] = DataArrays.levels(ds[input_covariates[i]])
   end
 
   # for expand.grid
   matrix_x = collect(Iterators.product(values(sort(dict_levels))...))
 
   df_from_tuple = DataFrames.DataFrame([y[i] for y in matrix_x, i in 1:length(matrix_x[1])])
-  df_from_tuple[input_response] = var_logitauchat
+  df_from_tuple[input_response] = gamma1
+  df_from_tuple[:var_logit] = var_logitauchat
 
   function convert_to_factor(x)
       return(DataFrames.pool(x))
@@ -74,6 +83,7 @@ function semiparametricAUC(; model_formula::DataFrames.Formula = throw(ArgumentE
   mf = ModelFrame(DataFrames.Terms(model_formula), df_from_tuple)
   mm = ModelMatrix(mf)
 
+  coefnames(mf)
   Z = mm.m
   tau  =  diagm([1/i for i in var_logitauchat])
   ztauz = inv(Z' * tau * Z)
@@ -87,14 +97,13 @@ function semiparametricAUC(; model_formula::DataFrames.Formula = throw(ArgumentE
   up = betas + threshold*std_error
   ci = hcat(betas,lo,up)
 
-  function coeftable(betass = betas, std_errors = std_error)
-  zz = betass ./ std_errors
-  level_names = ["Intercept", "x2: 2", "x1: 2"]
-  result = (CoefTable(hcat(round(betass,4),lo,up,round(std_errors,4),round(zz,4),2.0 * ccdf(Normal(), abs.(zz))),
-             ["Estimate","2.5%","97.5%","Std.Error","t value", "Pr(>|t|)"],
-           ["$i" for i = level_names], 4))
-  # coefnames(mf)
-  return(result)
+  function tbl_coefs(betass = betas, std_errors = std_error)
+    zz = betass ./ std_errors
+    result = (StatsBase.CoefTable(hcat(round(betass,4),lo,up,round(std_errors,4),round(zz,4),2.0 * ccdf(Normal(), abs.(zz))),
+               ["Estimate","2.5%","97.5%","Std.Error","t value", "Pr(>|t|)"],
+             ["$i" for i = coefnames(mf)], 4))
+    # coefnames(mf)
+    return(result)
   end
-  return(coeftable())
+  return(tbl_coefs())
 end

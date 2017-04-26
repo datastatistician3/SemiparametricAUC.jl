@@ -2,6 +2,7 @@ module SemiparametricAUC
 
 # package code goes here
 using Distributions
+using DataStructures
 using Iterators
 using DataArrays
 using DataFrames
