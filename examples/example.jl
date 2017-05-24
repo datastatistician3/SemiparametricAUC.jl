@@ -15,5 +15,8 @@ fasd[:x1]    = convert_to_factor(fasd[:x1])
 fasd[:x2]    = convert_to_factor(fasd[:x2])
 # fasd[:x3]  = convert_to_factor(fasd[:x3])
 
-one_covariates_results = SemiparametricAUC.semiparametricAUC(model_formula = y ~ x1, treatment_group = :group, data = fasd)
-two_covariates_results = SemiparametricAUC.semiparametricAUC(model_formula = y ~ x1 + x2, treatment_group = :group, data = fasd)
+one_covariates_results = SemiparametricAUC.semiparametricAUC(model_formula = y ~ x1,
+                                              treatment_group = :group, data = fasd)
+
+two_covariates_results = SemiparametricAUC.semiparametricAUC(model_formula = y ~ x1 + x2,
+                                            treatment_group = :group, data = fasd)
