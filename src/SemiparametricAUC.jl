@@ -9,7 +9,7 @@ using DataFrames
 import Base: log, mean, var, zeros, length, isa, values, sort, inv, diagm, sqrt, diag,hcat
 
 include("calculate-auc.jl")
-include("sAUC.jl")
+include("sauc.jl")
 include("simulation-one-predtictor.jl")
 
 export calculate_auc
