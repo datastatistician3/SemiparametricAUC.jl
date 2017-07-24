@@ -49,7 +49,7 @@ function semiparametricAUC(; model_formula::DataFrames.Formula = throw(ArgumentE
   end
   set2_sorted = DataStructures.SortedDict(set2)
 
-  # TO-DO: make sure that oerder of the variables are aligned with order of coefnames(mf)
+  # TO-DO: make sure that order of the variables are aligned with order of coefnames(mf)
   logitauchat_matrix = collect(calculate_auc(ya = set1_sorted[i][:,input_response], yb = set2_sorted[i+1][:,input_response])
     for i in 1:2:length(grouped_d))
 
