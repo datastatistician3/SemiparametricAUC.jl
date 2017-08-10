@@ -4,11 +4,10 @@
 
 <!--[![Coverage Status](https://coveralls.io/repos/sbohora/SemiparametricAUC.jl/badge.svg?branch=master&service=github)](https://coveralls.io/github/sbohora/SemiparametricAUC.jl?branch=master)
 
-<<<<<<< HEAD
+[![codecov.io](http://codecov.io/github/sbohora/SemiparametricAUC.jl/coverage.svg?branch=master)](http://codecov.io/github/sbohora/SemiparametricAUC.jl?branch=master) 
+
 [![codecov.io](http://codecov.io/github/sbohora/SemiparametricAUC.jl/coverage.svg?branch=master)](http://codecov.io/github/sbohora/SemiparametricAUC.jl?branch=master) -->
-=======
-[![codecov.io](http://codecov.io/github/sbohora/SemiparametricAUC.jl/coverage.svg?branch=master)](http://codecov.io/github/sbohora/SemiparametricAUC.jl?branch=master)
->>>>>>> origin/master
+
 
 ## Semi-parametric Area Under the Curve (sAUC) Regression
 Perform AUC analyses with discrete covariates and a semi-parametric estimation
@@ -114,8 +113,4 @@ The p-value for testing ![](http://latex.codecogs.com/gif.latex?H_0) is ![](http
 
 
 , where Z is a random variable with the standard normal distribution.
-<<<<<<< HEAD
 	Now, the total number of cells (combinations of covariates ![](http://latex.codecogs.com/gif.latex?X_1,...,X_k)) is ![](http://latex.codecogs.com/gif.latex?n_1%20n_2...n_k). As mentioned earlier, for a cell to be usable in the estimation, the cell needs to have at least two observations from Group A and two observations from Group B.  As long as the total number of usable cells is larger than the dimension of ![](http://latex.codecogs.com/gif.latex?%5Cboldsymbol%7B%5Cbeta%7D), then the matrix ![](http://latex.codecogs.com/gif.latex?%7B%5Cboldsymbol%7B%5Chat%7BZ%7D%5ET%20%20%5Chat%7BT%7D%5E%7B-1%7D%20%20Z%7D%7D) is invertible and consequently,![](http://latex.codecogs.com/gif.latex?%5Cboldsymbol%7B%5Chat%7B%5Cbeta%7D%7D) is computable and model (1) is identifiable.
-=======
-	Now, the total number of cells (combinations of covariates ![](http://latex.codecogs.com/gif.latex?X_1,...,X_k)) is ![](http://latex.codecogs.com/gif.latex?n_1%20n_2...n_k). As mentioned earlier, for a cell to be usable in the estimation, the cell needs to have at least two observations from Group A and two observations from Group B.  As long as the total number of usable cells is larger than the dimension of ![](http://latex.codecogs.com/gif.latex?%5Cboldsymbol%7B%5Cbeta%7D), then the matrix ![](http://latex.codecogs.com/gif.latex?%7B%5Cboldsymbol%7B%5Chat%7BZ%7D%5ET%20%20%5Chat%7BT%7D%5E%7B-1%7D%20%20Z%7D%7D) is invertible and consequently,![](http://latex.codecogs.com/gif.latex?%5Cboldsymbol%7B%5Chat%7B%5Cbeta%7D%7D) is computable and model (1) is identifiable.
->>>>>>> origin/master
