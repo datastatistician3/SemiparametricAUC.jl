@@ -1,4 +1,4 @@
-# SemiparametricAUC
+# SemiparametricAUC.jl
 
 [![Build Status](https://api.travis-ci.com/sbohora/SemiparametricAUC.jl.svg?token=shyYTzvvbsLRHsRAWXTg&branch=master)](https://travis-ci.org/sbohora/SemiparametricAUC.jl)
 
