@@ -10,19 +10,15 @@ More text
  
 ```@contents
 Pages = [
-    "tutorials/page1.md",
-    <!-- "tutorials/page2.md",
-    "tutorials/page3.md" -->
-    ]
+    "tutorials/page1.md"
+	]
 Depth = 2
 ```
 
 ## Another Section
 ```@contents
 Pages = [
-    "sec2/page1.md",
-    <!-- "sec2/page2.md",
-    "sec2/page3.md" -->
+    "sec2/page1.md"
     ]
 Depth = 2
 ```
