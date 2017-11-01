@@ -98,6 +98,7 @@ where, $E(\epsilon)=0$ and $\hat{T}=Var(\epsilon)=diag(\hat{\tau}_{i_1... i_k}^2
 $$\boldsymbol{\hat{\beta} ={(\hat{Z}^T  \hat{T}^{-1}  Z)}^{-1} Z^T  \hat{T}^{-1} \hat{\gamma}}$$		
 
 and
+
 $$\hat{V}(\boldsymbol{\hat{\beta}}) = \boldsymbol{{(\hat{Z}^T  \hat{T}^{-1}  Z)}^{-1}}$$
 
 The above equations can be used to construct a 100(1-Î±)% Wald confidence intervals for $\boldsymbol{\beta_i}$ using formula
