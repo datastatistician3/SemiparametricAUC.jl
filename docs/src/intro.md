@@ -99,7 +99,7 @@ $$\boldsymbol{\hat{\beta} ={(\hat{Z}^T  \hat{T}^{-1}  Z)}^{-1} Z^T  \hat{T}^{-1}
 
 and
 
-$$\hat{V}(\boldsymbol{\hat{\beta}}) = \boldsymbol{{(\hat{Z}^T  \hat{T}^{-1}  Z)}^{-1}}}$$
+<!--$$\hat{V}(\boldsymbol{\hat{\beta}}) = \boldsymbol{{(\hat{Z}^T  \hat{T}^{-1}  Z)}^{-1}}$$-->
 
 The above equations can be used to construct a 100(1-$\alpha$)% Wald confidence intervals for $\boldsymbol{\beta_i}$ using formula
 
