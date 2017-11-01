@@ -1,3 +1,13 @@
+"""
+  SemiparametricAUC.semiparametricAUC(model_formula = y ~ x1, treatment_group = :group, data = fasd)
+
+  This function is used to fit semiparametric AUC regression model specified by
+  giving a formula object of response and covariates and a separate argument of treatment
+  group. It will convert variables other than response into factors, estimate model parameters,
+  and display results.
+  
+"""
+semiparametricAUC(model_formula = y ~ x1, treatment_group = :group, data = fasd)
 
 function semiparametricAUC(; model_formula::DataFrames.Formula = throw(ArgumentError("Argument model_formula is missing")),
   treatment_group::Symbol = throw(ArgumentError("Argument treatment_group is missing")),
@@ -6,7 +16,7 @@ function semiparametricAUC(; model_formula::DataFrames.Formula = throw(ArgumentE
   # model_formula = y ~ x1 + x2
   # treatment_group = :group
   # data = fasd
-  
+
   if (isa(model_formula, Formula))
     input_covariates = DataFrames.Terms(model_formula).terms
     n1 = length(input_covariates)

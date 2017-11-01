@@ -1,35 +1,13 @@
-using DataArrays
-using Distributions
-using DataFrames
 
-function calculate_auc_simulation(; ya::Array = nothing, yb::Array = nothing)
-  m = length(ya)
-  p = length(yb)
-  I = zeros(m, p)
-    for i in range(1,m)
-        for j in range(1,p)
-            if ya[i] > yb[j]
-              I[i,j] = 1
-            elseif ya[i] == yb[j]
-              I[i,j] = 0.5
-            else
-               I[i,j] = 0
-            end
-        end
-    end
-    finv(x::Float64) = return(-log((1/x)-1))
-    auchat = mean(I)
-    finvhat = finv(auchat)
-    vya = mean(I,2)
-    vyb = mean(I,1)
-    svarya = var(vya)
-    svaryb = var(vyb)
-    vhat_auchat = (svarya/m) + (svaryb/p)
-    v_finv_auchat = vhat_auchat/((auchat^2)*(1-auchat)^2)
-    logitauchat = log(auchat/(1-auchat))
-    var_logitauchat = vhat_auchat /((auchat^2)*(1-auchat)^2)
-    return(auchat, finvhat, vhat_auchat)
-end
+"""
+  simulate_one_predictor(iter, m, p)
+
+  It asks for number of iterations to be run, number of observations in treatment
+  and control groups for the simulation of Semiparametric AUC regression adjusting for one discrete
+  covariate. In this simulation, true model parameters are as follows: β0 = 0.15, β1 = 0.50, β2 = 1.
+
+"""
+simulate_one_predictor(;iter = 500, m = 100, p = 120)
 
 function simulate_one_predictor(;iter = 500, m = 100, p = 120)
     iter = iter
@@ -59,7 +37,7 @@ function simulate_one_predictor(;iter = 500, m = 100, p = 120)
         d[:,k]=-log(u2) + d0 +(d1[k] + d2[k])
         nd[:,k]=-log(u1) + d1[k]
 
-        result=calculate_auc_simulation(ya = d[:,k], yb = nd[:,k])
+        result= calculate_auc_simulation(ya = d[:,k], yb = nd[:,k])
         AUChat[k]=result[1]
         finvhat[k]=result[2]
         Vhat_auchat[k] = result[3]
