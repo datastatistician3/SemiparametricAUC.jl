@@ -93,7 +93,7 @@ $\boldsymbol{\epsilon}$, we have
 
 $$\boldsymbol{\hat{\gamma}} =logit \boldsymbol{\hat{\pi}} = \boldsymbol{Z\beta + \epsilon},$$
 
-where, $E(\epsilon)=0$ and $\hat{T}=Var(\epsilon)=diag(\hat{\tau}_{i_1... i_k}^2)$ which is a diagonal matrix.  Finally, by using the generalized least squares method, we estimate the parameters Î²  and its variance-covariance matrix as follows;
+where, $E(\epsilon)=0$ and $\hat{T}=Var(\epsilon)=diag(\hat{\tau}_{i_1... i_k}^2)$ which is a diagonal matrix.  Finally, by using the generalized least squares method, we estimate the parameters $\beta$ and its variance-covariance matrix as follows;
 
 $$\boldsymbol{\hat{\beta} ={(\hat{Z}^T  \hat{T}^{-1}  Z)}^{-1} Z^T  \hat{T}^{-1} \hat{\gamma}}$$		
 
@@ -101,7 +101,7 @@ and
 
 $$\hat{V}(\boldsymbol{\hat{\beta}}) = \boldsymbol{{(\hat{Z}^T  \hat{T}^{-1}  Z)}^{-1}}$$
 
-The above equations can be used to construct a 100(1-Î±)% Wald confidence intervals for $\boldsymbol{\beta_i}$ using formula
+The above equations can be used to construct a 100(1-$\alpha$)% Wald confidence intervals for $\boldsymbol{\beta_i}$ using formula
 
 $$\hat{\beta}_i \pm Z_{1-\frac{\alpha}{2}} \sqrt{\hat{V}(\hat{\beta}_i)},$$
 

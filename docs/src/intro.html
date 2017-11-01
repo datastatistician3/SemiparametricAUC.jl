@@ -174,11 +174,11 @@ $(document).ready(function () {
 <p>where,</p>
 <p><span class="math inline">\(\epsilon_{i_1,...,i_k} \approx N(0,\tau_{i_1,...,i_k}^2)\)</span>. Then, by stacking up the <span class="math inline">\(\hat{\gamma}_{1_i,...,i_k}\)</span> to be <span class="math inline">\(\hat{\gamma}, Z_{i_1...i_k}\)</span> to be <span class="math inline">\(\boldsymbol{Z}\)</span>, and <span class="math inline">\(\epsilon_{i_1,...,i_k}\)</span> to be <span class="math inline">\(\boldsymbol{\epsilon}\)</span>, we have</p>
 <p><span class="math display">\[\boldsymbol{\hat{\gamma}} =logit \boldsymbol{\hat{\pi}} = \boldsymbol{Z\beta + \epsilon},\]</span></p>
-<p>where, <span class="math inline">\(E(\epsilon)=0\)</span> and <span class="math inline">\(\hat{T}=Var(\epsilon)=diag(\hat{\tau}_{i_1... i_k}^2)\)</span> which is a diagonal matrix. Finally, by using the generalized least squares method, we estimate the parameters ÃÂ² and its variance-covariance matrix as follows;</p>
+<p>where, <span class="math inline">\(E(\epsilon)=0\)</span> and <span class="math inline">\(\hat{T}=Var(\epsilon)=diag(\hat{\tau}_{i_1... i_k}^2)\)</span> which is a diagonal matrix. Finally, by using the generalized least squares method, we estimate the parameters <span class="math inline">\(\beta\)</span> and its variance-covariance matrix as follows;</p>
 <p><span class="math display">\[\boldsymbol{\hat{\beta} ={(\hat{Z}^T  \hat{T}^{-1}  Z)}^{-1} Z^T  \hat{T}^{-1} \hat{\gamma}}\]</span></p>
 <p>and</p>
 <p><span class="math display">\[\hat{V}(\boldsymbol{\hat{\beta}}) = \boldsymbol{{(\hat{Z}^T  \hat{T}^{-1}  Z)}^{-1}}\]</span></p>
-<p>The above equations can be used to construct a 100(1-ÃÂ±)% Wald confidence intervals for <span class="math inline">\(\boldsymbol{\beta_i}\)</span> using formula</p>
+<p>The above equations can be used to construct a 100(1-<span class="math inline">\(\alpha\)</span>)% Wald confidence intervals for <span class="math inline">\(\boldsymbol{\beta_i}\)</span> using formula</p>
 <p><span class="math display">\[\hat{\beta}_i \pm Z_{1-\frac{\alpha}{2}} \sqrt{\hat{V}(\hat{\beta}_i)},\]</span></p>
 <p>where <span class="math inline">\(Z_{1-\frac{\alpha}{2}}\)</span> is the <span class="math inline">\((1-\frac{\alpha}{2})^{th}\)</span> quantile of the standard normal distribution. Equivalently, we reject</p>
 <p><span class="math inline">\(H_0:\beta_i = 0\)</span> if <span class="math inline">\(|\hat{\beta}_i| &gt; Z_{1-\frac{\alpha}{2}} \sqrt{\hat{V}(\hat{\beta}_i)},\)</span></p>
