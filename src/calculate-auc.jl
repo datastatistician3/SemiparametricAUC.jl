@@ -1,4 +1,5 @@
 "Calcualtes AUC related estimates"
+
 function calculate_auc(; ya::DataArrays.DataArray = nothing, yb::DataArrays.DataArray = nothing)
   m = length(ya)
   p = length(yb)

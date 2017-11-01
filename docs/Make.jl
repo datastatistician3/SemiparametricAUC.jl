@@ -4,7 +4,7 @@ makedocs(
   format = :html,
   sitename = :"SemiparametricAUC.jl",
   pages = [
-      "First title page" => "sec2/page1.md",
+      "First title page" => "pages/page1.md",
       "Second Page title" => "tutorial/page1.md"
   ]
 )

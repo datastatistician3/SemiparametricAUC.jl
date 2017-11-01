@@ -5,5 +5,7 @@ Some text describing this section
 ## Subtitle
 
 ```@docs
-SemiparametricAUC.calculate_auc
+semiparametricAUC(model_formula, treatment_group, data)
 ```
+
+### Example
