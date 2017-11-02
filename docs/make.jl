@@ -27,6 +27,6 @@ deploydocs(
     target = "build",
     repo   = "github.com/sbohora/SemiparametricAUC.jl.git",
     make   = nothing
-    julia  = "0.6",
+    julia  = "release",
     osname = "osx"
 )
