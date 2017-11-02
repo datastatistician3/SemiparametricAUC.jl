@@ -26,7 +26,7 @@ deploydocs(
     deps   = Deps.pip("mkdocs", "python-markdown-math"),
     target = "build",
     repo   = "github.com/sbohora/SemiparametricAUC.jl.git",
-    make   = nothing
+    make   = nothing,
     julia  = "release",
     osname = "osx"
 )
