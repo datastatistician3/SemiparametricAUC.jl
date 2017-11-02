@@ -1,7 +1,7 @@
 var documenterSearchIndex = {"docs": [
 
 {
-    "location": "intro.html#",
+    "location": "index.html#",
     "page": "Introduction",
     "title": "Introduction",
     "category": "page",
@@ -9,7 +9,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "intro.html#Semi-parametric-Area-Under-the-Curve-(sAUC)-Regression-1",
+    "location": "index.html#Semi-parametric-Area-Under-the-Curve-(sAUC)-Regression-1",
     "page": "Introduction",
     "title": "Semi-parametric Area Under the Curve (sAUC) Regression",
     "category": "section",
@@ -17,7 +17,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "intro.html#What-is-sAUC-model-and-why?-1",
+    "location": "index.html#What-is-sAUC-model-and-why?-1",
     "page": "Introduction",
     "title": "What is sAUC model and why?",
     "category": "section",
@@ -25,7 +25,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "intro.html#Model-1",
+    "location": "index.html#Model-1",
     "page": "Introduction",
     "title": "Model",
     "category": "section",
@@ -33,7 +33,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "intro.html#Estimation-1",
+    "location": "index.html#Estimation-1",
     "page": "Introduction",
     "title": "Estimation",
     "category": "section",
@@ -45,7 +45,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Installation",
     "title": "Installation",
     "category": "page",
-    "text": "InstallationHere is the GitHub repository for SemiparametricAUC.jlYou can install SemiparametricAUC.jl via GitHub`git clone https://github.com/sbohora/SemiparametricAUC.jl.git`The following installation method is not currently available.`Pkg.add(\"SemiparametricAUC\") \n"
+    "text": "InstallationHere is the GitHub repository for SemiparametricAUC.jlYou can install SemiparametricAUC.jl via GitHubgit clone https://github.com/sbohora/SemiparametricAUC.jl.gitThe following installation method is not currently available.Pkg.add(\"SemiparametricAUC\") "
 },
 
 {
@@ -129,7 +129,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "index.html#",
+    "location": "command.html#",
     "page": "References",
     "title": "References",
     "category": "page",
@@ -137,7 +137,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "index.html#SemiparametricAUC.calculate_auc-Tuple{Any,Any}",
+    "location": "command.html#SemiparametricAUC.calculate_auc-Tuple{Any,Any}",
     "page": "References",
     "title": "SemiparametricAUC.calculate_auc",
     "category": "Method",
@@ -145,7 +145,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "index.html#SemiparametricAUC.semiparametricAUC-Tuple{Any,Any,Any}",
+    "location": "command.html#SemiparametricAUC.semiparametricAUC-Tuple{Any,Any,Any}",
     "page": "References",
     "title": "SemiparametricAUC.semiparametricAUC",
     "category": "Method",
@@ -153,7 +153,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "index.html#SemiparametricAUC.calculate_auc_simulation-Tuple{Any,Any}",
+    "location": "command.html#SemiparametricAUC.calculate_auc_simulation-Tuple{Any,Any}",
     "page": "References",
     "title": "SemiparametricAUC.calculate_auc_simulation",
     "category": "Method",
@@ -161,7 +161,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "index.html#SemiparametricAUC.simulate_one_predictor-Tuple{}",
+    "location": "command.html#SemiparametricAUC.simulate_one_predictor-Tuple{}",
     "page": "References",
     "title": "SemiparametricAUC.simulate_one_predictor",
     "category": "Method",
@@ -169,7 +169,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "index.html#SemiparametricAUC.jl-Commands-1",
+    "location": "command.html#SemiparametricAUC.jl-Commands-1",
     "page": "References",
     "title": "SemiparametricAUC.jl Commands",
     "category": "section",
@@ -245,7 +245,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Code",
     "title": "simulate_one_predictor",
     "category": "section",
-    "text": "\"\"\"\n  simulate_one_predictor(iter, m, p)\n\n  It asks for number of iterations to be run, number of observations in treatment\n  and control groups for the simulation of Semiparametric AUC regression adjusting for one discrete\n  covariate. In this simulation, true model parameters are as follows: β0 = 0.15, β1 = 0.50, β2 = 1.\n\n\"\"\"\nsimulate_one_predictor(;iter = 500, m = 100, p = 120)\n\nfunction simulate_one_predictor(;iter = 500, m = 100, p = 120)\n    iter = iter\n    finvhat = gamma1 = Array(Float64, 3)\n    AUChat = Array(Float64, 3)\n    Vhat_auchat = Array(Float64, 3)\n    lo = up = Array(Float64, iter, 3)\n    d  = Array(Float64, m, 3)\n    nd = Array(Float64, p, 3)\n\n    m_betas = Array(Float64, iter, 3)\n    sd_betas = Array(Float64, iter, 3)\n    lower = upper = score =  cov_b = Array(Float64, iter, 3)\n    v_finv_auchat = gamma = Array(Float64, 3)\n    all_var = Array(Float64, 3)\n    var_finv_auchat = Array(Float64, iter, 3)\n\n    for z in range(1,iter)\n      d1 = [0.0, 0.0, 0.0]\n      d2 = [0, 0.50, 1.00]\n      d0 = 0.15\n      y = 1:3\n      for k in y\n        result = Array(Float64, k, 3)\n        u1 = randexp(p) # rand(Exponential(1), p)\n        u2 = randexp(m) # rand(Exponential(1), m)\n        d[:,k]=-log(u2) + d0 +(d1[k] + d2[k])\n        nd[:,k]=-log(u1) + d1[k]\n\n        result= calculate_auc_simulation(ya = d[:,k], yb = nd[:,k])\n        AUChat[k]=result[1]\n        finvhat[k]=result[2]\n        Vhat_auchat[k] = result[3]\n        v_finv_auchat[k] = Vhat_auchat[k]/(((AUChat[k])^2)*(1-(AUChat[k]))^2)  #Variance of F inverse\n      end\n      gamma1 = finvhat\n      Z = reshape([1,0,0,1,1,0,1,0,1], 3, 3)'\n\n      tau  =  diagm([1/i for i in v_finv_auchat])\n\n      ztauz = inv(Z' * tau * Z)\n      var_betas = diag(ztauz)\n      std_error = sqrt(var_betas)\n      betas = ztauz * Z' * tau * gamma1\n\n      m_betas[z,:]  =  betas\n      var_finv_auchat[z,:] = var_betas\n    end\n    lo = m_betas .- 1.96*sqrt(var_finv_auchat)\n    up = m_betas .+ 1.96*sqrt(var_finv_auchat)\n    ci = hcat(lo,up)\n    ci_betas = ci[:,[1,4,2,5,3,6]]\n    return(m_betas, var_finv_auchat, ci_betas, iter)\nend"
+    "text": "\"\"\"\n  simulate_one_predictor(iter, m, p)\n\n  It asks for number of iterations to be run, number of observations in treatment\n  and control groups for the simulation of Semiparametric AUC regression adjusting for one discrete\n  covariate. In this simulation, true model parameters are as follows: β0 = 0.15, β1 = 0.50, β2 = 1.\n\n\"\"\"\nsimulate_one_predictor(iter = 500, m = 100, p = 120)\n\nfunction simulate_one_predictor(;iter = 500, m = 100, p = 120)\n    iter = iter\n    finvhat = gamma1 = Array(Float64, 3)\n    AUChat = Array(Float64, 3)\n    Vhat_auchat = Array(Float64, 3)\n    lo = up = Array(Float64, iter, 3)\n    d  = Array(Float64, m, 3)\n    nd = Array(Float64, p, 3)\n\n    m_betas = Array(Float64, iter, 3)\n    sd_betas = Array(Float64, iter, 3)\n    lower = upper = score =  cov_b = Array(Float64, iter, 3)\n    v_finv_auchat = gamma = Array(Float64, 3)\n    all_var = Array(Float64, 3)\n    var_finv_auchat = Array(Float64, iter, 3)\n\n    for z in range(1,iter)\n      d1 = [0.0, 0.0, 0.0]\n      d2 = [0, 0.50, 1.00]\n      d0 = 0.15\n      y = 1:3\n      for k in y\n        result = Array(Float64, k, 3)\n        u1 = randexp(p) # rand(Exponential(1), p)\n        u2 = randexp(m) # rand(Exponential(1), m)\n        d[:,k]=-log(u2) + d0 +(d1[k] + d2[k])\n        nd[:,k]=-log(u1) + d1[k]\n\n        result= calculate_auc_simulation(ya = d[:,k], yb = nd[:,k])\n        AUChat[k]=result[1]\n        finvhat[k]=result[2]\n        Vhat_auchat[k] = result[3]\n        v_finv_auchat[k] = Vhat_auchat[k]/(((AUChat[k])^2)*(1-(AUChat[k]))^2)  #Variance of F inverse\n      end\n      gamma1 = finvhat\n      Z = reshape([1,0,0,1,1,0,1,0,1], 3, 3)'\n\n      tau  =  diagm([1/i for i in v_finv_auchat])\n\n      ztauz = inv(Z' * tau * Z)\n      var_betas = diag(ztauz)\n      std_error = sqrt(var_betas)\n      betas = ztauz * Z' * tau * gamma1\n\n      m_betas[z,:]  =  betas\n      var_finv_auchat[z,:] = var_betas\n    end\n    lo = m_betas .- 1.96*sqrt(var_finv_auchat)\n    up = m_betas .+ 1.96*sqrt(var_finv_auchat)\n    ci = hcat(lo,up)\n    ci_betas = ci[:,[1,4,2,5,3,6]]\n    return(m_betas, var_finv_auchat, ci_betas, iter)\nend"
 },
 
 {
@@ -253,7 +253,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Code",
     "title": "Example",
     "category": "section",
-    "text": "simulate_one_predictor(;iter = 500, m = 100, p = 120)"
+    "text": "simulate_one_predictor(iter = 500, m = 100, p = 120)"
 },
 
 {
@@ -261,15 +261,7 @@ var documenterSearchIndex = {"docs": [
     "page": "sAUC in R",
     "title": "sAUC in R",
     "category": "page",
-    "text": ""
-},
-
-{
-    "location": "example.html#sAUC-in-R-(sAUC)-1",
-    "page": "sAUC in R",
-    "title": "sAUC in R (sAUC)",
-    "category": "section",
-    "text": ""
+    "text": "Please follow this link to R package site sAUC in R (sAUC)"
 },
 
 {
@@ -325,15 +317,7 @@ var documenterSearchIndex = {"docs": [
     "page": "saucpy in Python",
     "title": "saucpy in Python",
     "category": "page",
-    "text": ""
-},
-
-{
-    "location": "example-python.html#sAUC-in-Python-(saucpy)-1",
-    "page": "saucpy in Python",
-    "title": "sAUC in Python (saucpy)",
-    "category": "section",
-    "text": ""
+    "text": "Please follow this link to Python package site sAUC in Python"
 },
 
 {
@@ -357,7 +341,7 @@ var documenterSearchIndex = {"docs": [
     "page": "saucpy in Python",
     "title": "Example",
     "category": "section",
-    "text": "To illustrate how to apply the proposed method, we obtained data from a randomized and controlled clinical trial, which was designed to increase knowledge and awareness to prevent Fetal Alcohol Spectrum Disorders (FASD) in children through the development of printed materials targeting women of childbearing age in Russia. One of the study objectives was to evaluate effects of FASD education brochures with different types of information and visual images on FASD related knowledge, attitudes, and alcohol consumption on childbearing-aged women. The study was conducted in two regions in Russia including St. Petersburg (SPB) and the Nizhny Novgorod Region (NNR) from 2005 to 2008. A total of 458 women were recruited from women's clinics and were randomly assigned to one of three groups (defined by the GROUP variable): (1) a printed FASD prevention brochure with positive images and information stated in a positive way, positive group (PG), (2) a FASD education brochure with negative messages and vivid images, negative group (NG); and (3) a general health material, control group (CG). For the purpose of the analysis in this thesis, only women in the PG and CG were included. Data were obtained from the study principal investigators . The response variable was the change in the number of drinks per day (CHANGE_DRINK=number of drinks after-number of drinks before) on average in the last 30 days from one-month follow-up to baseline. Two covariates considered for the proposed method were \"In the last 30 days, have you smoked cigarettes?\" (SMOKE) and  \"In the last 30 days, did you take any other vitamins?\" (OVITAMIN). Both covariates had \"Yes\" or \"No\" as the two levels. The question of interest here was to assess the joint predictive effects of SMOKE and OVITAMIN on whether the participants reduced the number of drinks per day from baseline to one month follow-up period. A total of 210 women with no missing data on any of the CHANGE_DRINK, SMOKE, GROUP, and OVITAMIN were included in the analysis.The response variable CHANGE_DRINK was heavily skewed and not normally distributed in each group  (Shapiro-Wilk p<0.001). Therefore, we decided to use the AUG regression model to analyze the data.  In the AUG regression model we definelarge pi = p(Y_CG  Y_PG)Note that the value of large pi greater than .5 means that women in the PG had a greater reduction of alcohol drinks than those in the CG. For statistical results, all p-values < .05 were considered statistically significant and 95% CIs were presented.We first fit an AUC regression model including both main effects of the covariates.  Note that the main effects of the covariates in fact represented their interactions with the GROUP variable, which is different than the linear or generalized linear model frame.  The reason is that the GROUP variable is involved in defining the AUC.  Tables below present the parameter estimates, SEs, p-values, and 95% CIs for model with one and two covariates.  Because parameter beta_2 was not significantly different from 0, we dropped OVITAMIN and fit another model including only the SMOKE main effect.Table below shows a significant interaction between SMOKE and GROUP because the SMOKE was statistically significant (95% CI: (0.06, 1.47)). Therefore, the final model was logit(hatpi_Smoke) = hatbeta_0 + hatbeta_1*I(Smoke =Yes). Because the interaction between SMOKE and GROUP was significant, we need to use AUC as a measure of the GROUP effect on CHANGE_DRINK for smokers and non-smokers separately using following formula for example for smokers;hatpi_Smoke = frace^hatbeta_0 + hatbeta_1*Smoke =Yes1 + e^hatbeta_0 + hatbeta_1*Smoke =YesSpecifically, the AUCs were 0.537 (insignificant) and 0.713 (significant) for non-smokers and smokers, respectively.  This implies that the effect of positive and control brochures were similar for nonsmokers; however, for smokers, the probability that the positive brochure had a better effect than the control brochure in terms of alcohol reduction is 71.30%, indicating the positive brochure is a better option than the control brochure."
+    "text": "To illustrate how to apply the proposed method, we obtained data from a randomized and controlled clinical trial, which was designed to increase knowledge and awareness to prevent Fetal Alcohol Spectrum Disorders (FASD) in children through the development of printed materials targeting women of childbearing age in Russia. One of the study objectives was to evaluate effects of FASD education brochures with different types of information and visual images on FASD related knowledge, attitudes, and alcohol consumption on childbearing-aged women. The study was conducted in two regions in Russia including St. Petersburg (SPB) and the Nizhny Novgorod Region (NNR) from 2005 to 2008. A total of 458 women were recruited from women's clinics and were randomly assigned to one of three groups (defined by the GROUP variable): (1) a printed FASD prevention brochure with positive images and information stated in a positive way, positive group (PG), (2) a FASD education brochure with negative messages and vivid images, negative group (NG); and (3) a general health material, control group (CG). For the purpose of the analysis in this thesis, only women in the PG and CG were included. Data were obtained from the study principal investigators . The response variable was the change in the number of drinks per day (CHANGE_DRINK=number of drinks after-number of drinks before) on average in the last 30 days from one-month follow-up to baseline. Two covariates considered for the proposed method were \"In the last 30 days, have you smoked cigarettes?\" (SMOKE) and  \"In the last 30 days, did you take any other vitamins?\" (OVITAMIN). Both covariates had \"Yes\" or \"No\" as the two levels. The question of interest here was to assess the joint predictive effects of SMOKE and OVITAMIN on whether the participants reduced the number of drinks per day from baseline to one month follow-up period. A total of 210 women with no missing data on any of the CHANGE_DRINK, SMOKE, GROUP, and OVITAMIN were included in the analysis.The response variable CHANGE_DRINK was heavily skewed and not normally distributed in each group  (Shapiro-Wilk p<0.001). Therefore, we decided to use the AUG regression model to analyze the data.  In the AUG regression model we definelarge pi = p(Y_CG  Y_PG)Note that the value of large pi greater than .5 means that women in the PG had a greater reduction of alcohol drinks than those in the CG. For statistical results, all p-values < .05 were considered statistically significant and 95% CIs were presented.We first fit an AUC regression model including both main effects of the covariates.  Note that the main effects of the covariates in fact represented their interactions with the GROUP variable, which is different than the linear or generalized linear model frame.  The reason is that the GROUP variable is involved in defining the AUC.  Tables below present the parameter estimates, SEs, p-values, and 95% CIs for model with one and two covariates.  Because parameter beta_2 was not significantly different from 0, we dropped OVITAMIN and fit another model including only the SMOKE main effect.Table below shows a significant interaction between SMOKE and GROUP because the SMOKE was statistically significant (95% CI: (0.06, 1.47)). Therefore, the final model waslogit(hatpi_Smoke) = hatbeta_0 + hatbeta_1*I(Smoke =Yes).Because the interaction between SMOKE and GROUP was significant, we need to use AUC as a measure of the GROUP effect on CHANGE_DRINK for smokers and non-smokers separately using following formula for example for smokers;hatpi_Smoke = frace^hatbeta_0 + hatbeta_1*Smoke =Yes1 + e^hatbeta_0 + hatbeta_1*Smoke =YesSpecifically, the AUCs were 0.537 (insignificant) and 0.713 (significant) for non-smokers and smokers, respectively.  This implies that the effect of positive and control brochures were similar for nonsmokers; however, for smokers, the probability that the positive brochure had a better effect than the control brochure in terms of alcohol reduction is 71.30%, indicating the positive brochure is a better option than the control brochure."
 },
 
 {

@@ -1,5 +1,5 @@
 
-## sAUC in Python (saucpy)
+Please follow this link to Python package site [sAUC in Python](https://sbohora.github.io/saucpy/)
 
 ### Perform AUC analyses with discrete covariates and a semi-parametric estimation
 
@@ -22,13 +22,13 @@ To illustrate how to apply the proposed method, we obtained data from a randomiz
 
 The response variable CHANGE_DRINK was heavily skewed and not normally distributed in each group  (Shapiro-Wilk p<0.001). Therefore, we decided to use the AUG regression model to analyze the data.  In the AUG regression model we define
 
-$$\large \pi = p(Y_{CG} > Y_{PG})$$ 
+$$\large \pi = p(Y_{CG} > Y_{PG})$$
 
 Note that the value of $\large \pi$ greater than .5 means that women in the PG had a greater reduction of alcohol drinks than those in the CG. For statistical results, all p-values < .05 were considered statistically significant and 95% CIs were presented.
 
-We first fit an AUC regression model including both main effects of the covariates.  Note that the main effects of the covariates in fact represented their interactions with the GROUP variable, which is different than the linear or generalized linear model frame.  The reason is that the GROUP variable is involved in defining the AUC.  Tables below present the parameter estimates, SEs, p-values, and 95% CIs for model with one and two covariates.  Because parameter $\beta_2$ was not significantly different from 0, we dropped OVITAMIN and fit another model including only the SMOKE main effect.Table below shows a significant interaction between SMOKE and GROUP because the SMOKE was statistically significant (95% CI: (0.06, 1.47)). Therefore, the final model was 
+We first fit an AUC regression model including both main effects of the covariates.  Note that the main effects of the covariates in fact represented their interactions with the GROUP variable, which is different than the linear or generalized linear model frame.  The reason is that the GROUP variable is involved in defining the AUC.  Tables below present the parameter estimates, SEs, p-values, and 95% CIs for model with one and two covariates.  Because parameter $\beta_2$ was not significantly different from 0, we dropped OVITAMIN and fit another model including only the SMOKE main effect.Table below shows a significant interaction between SMOKE and GROUP because the SMOKE was statistically significant (95% CI: (0.06, 1.47)). Therefore, the final model was
 
-$$logit(\hat{\pi}_{Smoke}) = \hat{\beta_0} + \hat{\beta_1}*I(Smoke =Yes)$$. 
+$$logit(\hat{\pi}_{Smoke}) = \hat{\beta_0} + \hat{\beta_1}*I(Smoke =Yes)$$.
 
 Because the interaction between SMOKE and GROUP was significant, we need to use AUC as a measure of the GROUP effect on CHANGE_DRINK for smokers and non-smokers separately using following formula for example for smokers;
 
@@ -51,7 +51,7 @@ sAUC.semiparametricAUC(response = "y", treatment_group = ["group"], input_covari
 ```
 
 ### Model Summary: one predictor
-    
+
 |Predictors    | Coefficients| Std. Error |     2.5% |    97.5% | p |
 |--------------|:-----------:|:----------:|:----------:|:----------:|----------:|
 |Intercept     |-0.909936    | 0.315218   | -1.527751| -0.292121|  0.003893|
@@ -66,7 +66,7 @@ sAUC.semiparametricAUC(response = "y", treatment_group = ["group"], input_covari
 
 
 ### Model Summary : two predictors
- 
+
 |Predictors    | Coefficients| Std. Error |     2.5% |    97.5% | p |
 |--------------|:-----------:|:----------:|:----------:|:----------:|----------:|
 |Intercept     |-1.125352    |0.412748| -1.934324| -0.316380| 0.006401|

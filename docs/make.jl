@@ -8,11 +8,11 @@ makedocs(
   authors  = "Som B. Bohora",
   # assets   = ["assets/favicon.ico"],
   pages    = [
-              "Introduction"    => "intro.md",
+              "Introduction"    => "index.md",
               "Installation"    => "install.md",
               "Article"         => "paper.md",
               "Example"         => "example-julia.md",
-              "References"        => "index.md",
+              "References"      => "command.md",
               "Code"            => "code.md",
               "sAUC in R"       => "example.md",
               "sAUC in R Shiny" => "r-shiny.md",

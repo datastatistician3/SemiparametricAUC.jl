@@ -1,5 +1,5 @@
 
-# sAUC in R (sAUC)
+Please follow this link to R package site [sAUC in R (sAUC)](https://sbohora.github.io/sAUC/)
 
 ### Perform AUC analyses with discrete covariates and a semi-parametric estimation
 

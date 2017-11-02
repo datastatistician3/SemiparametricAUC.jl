@@ -235,7 +235,7 @@ calculate_auc_simulation(ya = DataFrames.DataArray([2,3,4,3]), yb = DataFrames.D
   covariate. In this simulation, true model parameters are as follows: β0 = 0.15, β1 = 0.50, β2 = 1.
 
 """
-simulate_one_predictor(;iter = 500, m = 100, p = 120)
+simulate_one_predictor(iter = 500, m = 100, p = 120)
 
 function simulate_one_predictor(;iter = 500, m = 100, p = 120)
     iter = iter
@@ -294,5 +294,5 @@ end
 
 #### Example
 ```julia
-simulate_one_predictor(;iter = 500, m = 100, p = 120)
+simulate_one_predictor(iter = 500, m = 100, p = 120)
 ```
