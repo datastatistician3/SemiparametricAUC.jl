@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Code · Perform semiparametric AUC model in Julia</title><link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css" rel="stylesheet" type="text/css"/><link href="https://fonts.googleapis.com/css?family=Lato|Ubuntu+Mono" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.2.0/require.min.js" data-main="assets/documenter.js"></script><script src="siteinfo.js"></script><script src="../versions.js"></script><link href="assets/highlightjs/default.css" rel="stylesheet" type="text/css"/><link href="assets/documenter.css" rel="stylesheet" type="text/css"/></head><body><nav class="toc"><a href="index.html"><img class="logo" src="assets/logo.png" alt="Perform semiparametric AUC model in Julia logo"/></a><h1>Perform semiparametric AUC model in Julia</h1><select id="version-selector" onChange="window.location.href=this.value" style="visibility: hidden"></select><form class="search" action="search.html"><input id="search-query" name="q" type="text" placeholder="Search docs"/></form><ul><li><a class="toctext" href="index.html">Introduction</a></li><li><a class="toctext" href="install.html">Installation</a></li><li><a class="toctext" href="paper.html">Article</a></li><li><a class="toctext" href="example-julia.html">Example</a></li><li><a class="toctext" href="command.html">References</a></li><li class="current"><a class="toctext" href="code.html">Code</a><ul class="internal"><li><a class="toctext" href="#calculate_auc-1">calculate_auc</a></li><li><a class="toctext" href="#semiparametricAUC-1">semiparametricAUC</a></li><li><a class="toctext" href="#calculate_auc_simulation-1">calculate_auc_simulation</a></li><li><a class="toctext" href="#simulate_one_predictor-1">simulate_one_predictor</a></li></ul></li><li><a class="toctext" href="example.html">sAUC in R</a></li><li><a class="toctext" href="r-shiny.html">sAUC in R Shiny</a></li><li><a class="toctext" href="example-python.html">saucpy in Python</a></li><li><a class="toctext" href="bohora.html">Developer</a></li><li><a class="toctext" href="bug-report.html">Report Bugs</a></li></ul></nav><article id="docs"><header><nav><ul><li><a href="code.html">Code</a></li></ul><a class="edit-page" href="https://github.com/sbohora/SemiparametricAUC.jl/tree/a5a8bf37e749b00fb10cb186405485e4d0080107/docs/src/code.md"><span class="fa"></span> Edit on GitHub</a></nav><hr/></header><h1><a class="nav-anchor" id="SemiparametricAUC.jl-Code-1" href="#SemiparametricAUC.jl-Code-1">SemiparametricAUC.jl Code</a></h1><h2><a class="nav-anchor" id="calculate_auc-1" href="#calculate_auc-1">calculate_auc</a></h2><pre><code class="language-julia">&quot;Calcualtes AUC related estimates&quot;
-&quot;&quot;&quot;
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Code · Perform semiparametric AUC model in Julia</title><link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css" rel="stylesheet" type="text/css"/><link href="https://fonts.googleapis.com/css?family=Lato|Ubuntu+Mono" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.2.0/require.min.js" data-main="assets/documenter.js"></script><script src="siteinfo.js"></script><script src="../versions.js"></script><link href="assets/highlightjs/default.css" rel="stylesheet" type="text/css"/><link href="assets/documenter.css" rel="stylesheet" type="text/css"/></head><body><nav class="toc"><a href="index.html"><img class="logo" src="assets/logo.png" alt="Perform semiparametric AUC model in Julia logo"/></a><h1>Perform semiparametric AUC model in Julia</h1><select id="version-selector" onChange="window.location.href=this.value" style="visibility: hidden"></select><form class="search" action="search.html"><input id="search-query" name="q" type="text" placeholder="Search docs"/></form><ul><li><a class="toctext" href="index.html">Introduction</a></li><li><a class="toctext" href="install.html">Installation</a></li><li><a class="toctext" href="paper.html">Article</a></li><li><a class="toctext" href="example-julia.html">Example</a></li><li><a class="toctext" href="command.html">References</a></li><li class="current"><a class="toctext" href="code.html">Code</a><ul class="internal"><li><a class="toctext" href="#calculate_auc-1">calculate_auc</a></li><li><a class="toctext" href="#semiparametricAUC-1">semiparametricAUC</a></li><li><a class="toctext" href="#calculate_auc_simulation-1">calculate_auc_simulation</a></li><li><a class="toctext" href="#simulate_one_predictor-1">simulate_one_predictor</a></li></ul></li><li><a class="toctext" href="example.html">sAUC in R</a></li><li><a class="toctext" href="r-shiny.html">sAUC in R Shiny</a></li><li><a class="toctext" href="example-python.html">saucpy in Python</a></li><li><a class="toctext" href="bohora.html">Developer</a></li><li><a class="toctext" href="bug-report.html">Report Bugs</a></li></ul></nav><article id="docs"><header><nav><ul><li><a href="code.html">Code</a></li></ul><a class="edit-page" href="https://github.com/sbohora/SemiparametricAUC.jl/tree/1cd5f70a45cae798e111d21fbad44eb75f68d736/docs/src/code.md"><span class="fa"></span> Edit on GitHub</a></nav><hr/></header><h1><a class="nav-anchor" id="SemiparametricAUC.jl-Code-1" href="#SemiparametricAUC.jl-Code-1">SemiparametricAUC.jl Code</a></h1><h2><a class="nav-anchor" id="calculate_auc-1" href="#calculate_auc-1">calculate_auc</a></h2><pre><code class="language-julia">&quot;&quot;&quot;
   calculate_auc(ya, yb)
 
-  This function takes two DataArrays `ya` and `yb` and calculates variance of predicted AUC,
-  logit of predicted AUC, and variance of logit of predicted AUC responses passed.
+  # &quot;Calcualtes AUC related estimates&quot;
 
+  This function takes two DataArray arguments `ya` and `yb` and calculates variance of predicted AUC,
+  logit of predicted AUC, and variance of logit of predicted AUC responses passed.
 &quot;&quot;&quot;
 calculate_auc(ya = DataFrames.DataArray([2,3,4,3]), yb = DataFrames.DataArray([3,2,1,3,4,3]))
 
@@ -37,19 +37,22 @@ function calculate_auc(; ya::DataArrays.DataArray = nothing, yb::DataArrays.Data
     var_logitauchat = vhat_auchat /((auchat^2)*(1-auchat)^2)
     return((var_logitauchat, logitauchat))
 end</code></pre><h4><a class="nav-anchor" id="Example-1" href="#Example-1">Example</a></h4><pre><code class="language-julia">calculate_auc(ya = DataFrames.DataArray([2,3,4,5]), yb = DataFrames.DataArray([2,3,4,5]))</code></pre><h2><a class="nav-anchor" id="semiparametricAUC-1" href="#semiparametricAUC-1">semiparametricAUC</a></h2><pre><code class="language-julia">&quot;&quot;&quot;
-  SemiparametricAUC.semiparametricAUC(model_formula = y ~ x1, treatment_group = :group, data = fasd)
+  semiparametricAUC(model_formula, treatment_group, data)
 
   This function is used to fit semiparametric AUC regression model specified by
   giving a formula object of response and covariates and a separate argument of treatment
   group. It will convert variables other than response into factors, estimate model parameters,
   and display results.
 
+  This function takes a formula object `model_formula` with response and covariates such as {response ~ x1 + x2},
+  group argument `treatment_group`, which is treatment group for which a comparision is to be made, and
+  a data argument `data` which is a DataFrame object that contains variables needed for the analysis.
 &quot;&quot;&quot;
 semiparametricAUC(model_formula = y ~ x1, treatment_group = :group, data = fasd)
 
 function semiparametricAUC(; model_formula::DataFrames.Formula = throw(ArgumentError(&quot;Argument model_formula is missing&quot;)),
   treatment_group::Symbol = throw(ArgumentError(&quot;Argument treatment_group is missing&quot;)),
-  data::DataFrames.DataFrame = throw(ArgumentError(&quot;Argument data is missing&quot;)))
+    data::DataFrames.DataFrame = throw(ArgumentError(&quot;Argument data is missing&quot;)))
   # fasd = DataFrames.readtable(joinpath(Pkg.dir(&quot;SemiparametricAUC&quot;), &quot;data/fasd.csv&quot;))
   # model_formula = y ~ x1 + x2
   # treatment_group = :group
@@ -72,11 +75,11 @@ function semiparametricAUC(; model_formula::DataFrames.Formula = throw(ArgumentE
   input_treatment = Symbol(treatment_group)
   group_covariates = vcat(input_covariates, input_treatment)
 
-  if (sum([isa(data[:,i], DataFrames.PooledDataArray) for i in group_covariates]) == 0)
-    error(&quot;Please put response and input as formula. For example, response ~ x1 + x2&quot;)
-  else
-      println(&quot;Great&quot;)
-  end
+  # if (sum([isa(data[:,i], DataFrames.PooledDataArray) for i in group_covariates]) == 0)
+  #   error(&quot;Please put response and input as formula. For example, response ~ x1 + x2&quot;)
+  # else
+  #     println(&quot;Great&quot;)
+  # end
 
   print_with_color(:red,&quot;Data are being analyzed. Please, be patient.\n\n&quot;)
   # split by factors
@@ -139,25 +142,17 @@ function semiparametricAUC(; model_formula::DataFrames.Formula = throw(ArgumentE
   std_error = sqrt(var_betas)
   betas = ztauz * Z&#39; * tau * gamma1
 
-  threshold = Distributions.quantile(Normal(), 0.975)
+  threshold = Distributions.quantile(Distributions.Normal(), 0.975)
 
   lo = betas - threshold*std_error
   up = betas + threshold*std_error
   ci = hcat(betas,lo,up)
 
-  function tbl_coefs(betass = betas, std_errors = std_error)
-    zz = betass ./ std_errors
-    result = (StatsBase.CoefTable(hcat(round(betass,4),lo,up,round(std_errors,4),round(zz,4),2.0 * ccdf(Normal(), abs.(zz))),
-               [&quot;Estimate&quot;,&quot;2.5%&quot;,&quot;97.5%&quot;,&quot;Std.Error&quot;,&quot;t value&quot;, &quot;Pr(&gt;|t|)&quot;],
-             [&quot;$i&quot; for i = coefnames(mf)], 4))
-    # coefnames(mf)
-    return(result)
-  end
-  return(tbl_coefs())
+  return(SemiparametricAUC.coefs_table(mf = mf, lo = lo, up = up, betass = betas, std_errors = std_error))
 end</code></pre><h4><a class="nav-anchor" id="Example-2" href="#Example-2">Example</a></h4><pre><code class="language-julia">semiparametricAUC(model_formula = y ~ x1, treatment_group = :group, data = fasd)</code></pre><h2><a class="nav-anchor" id="calculate_auc_simulation-1" href="#calculate_auc_simulation-1">calculate_auc_simulation</a></h2><pre><code class="language-julia">&quot;&quot;&quot;
   calculate_auc_simulation(ya, yb)
 
-  This function takes two DataArrays `ya` and `yb` and calculates variance of predicted AUC,
+  This function takes two DataArray arguments `ya` and `yb` and calculates variance of predicted AUC,
   logit of predicted AUC, and variance of logit of predicted AUC responses passed.
 &quot;&quot;&quot;
 
@@ -193,8 +188,8 @@ function calculate_auc_simulation(; ya::Array = nothing, yb::Array = nothing)
 end</code></pre><h4><a class="nav-anchor" id="Example-3" href="#Example-3">Example</a></h4><pre><code class="language-julia">calculate_auc_simulation(ya = DataFrames.DataArray([2,3,4,3]), yb = DataFrames.DataArray([3,2,1,3,4,3]))</code></pre><h2><a class="nav-anchor" id="simulate_one_predictor-1" href="#simulate_one_predictor-1">simulate_one_predictor</a></h2><pre><code class="language-julia">&quot;&quot;&quot;
   simulate_one_predictor(iter, m, p)
 
-  It asks for number of iterations to be run, number of observations in treatment
-  and control groups for the simulation of Semiparametric AUC regression adjusting for one discrete
+  It asks for number of iterations `iter` to be run, number of observations `m` in treatment
+  and control groups `p` for the simulation of Semiparametric AUC regression adjusting for one discrete
   covariate. In this simulation, true model parameters are as follows: β0 = 0.15, β1 = 0.50, β2 = 1.
 
 &quot;&quot;&quot;
@@ -252,4 +247,28 @@ function simulate_one_predictor(;iter = 500, m = 100, p = 120)
     ci = hcat(lo,up)
     ci_betas = ci[:,[1,4,2,5,3,6]]
     return(m_betas, var_finv_auchat, ci_betas, iter)
-end</code></pre><h4><a class="nav-anchor" id="Example-4" href="#Example-4">Example</a></h4><pre><code class="language-julia">simulate_one_predictor(iter = 500, m = 100, p = 120)</code></pre><footer><hr/><a class="previous" href="command.html"><span class="direction">Previous</span><span class="title">References</span></a><a class="next" href="example.html"><span class="direction">Next</span><span class="title">sAUC in R</span></a></footer></article></body></html>
+end</code></pre><h4><a class="nav-anchor" id="Example-4" href="#Example-4">Example</a></h4><pre><code class="language-julia">simulate_one_predictor(iter = 500, m = 100, p = 120)</code></pre><pre><code class="language-julia">import SemiparametricAUC: simulate_one_predictor
+
+ds_betas = @time simulate_one_predictor(iter = 500, m = 120, p = 100)
+@time simulate_one_predictor(iter = 1000, m = 220, p = 200)
+@time simulate_one_predictor(iter = 1000, m = 400, p = 300)
+@time simulate_one_predictor(iter = 100000, m = 120, p = 100)
+
+meanbeta = DataFrames.colwise(mean, DataFrames.DataFrame(ds_betas[1])) # mean betas
+meanvar = DataFrames.colwise(var, DataFrames.DataFrame(ds_betas[2]))  # mean variances
+meansd = DataFrames.colwise(sqrt, DataFrames.DataFrame(ds_betas[2]))
+
+#Calculating 95% CI coverage
+low_bo  = 0.15 .&gt;= ds_betas[3][:,1]
+high_bo = 0.15 .&lt;= ds_betas[3][:,2]
+# sum(low_bo &amp; high_bo)/ds_betas[4]
+
+low_b1  = 0.50 .&gt;= ds_betas[3][:,3]
+high_b1 = 0.50 .&lt;= ds_betas[3][:,4]
+# sum(low_b1 &amp; high_b1)/ds_betas[4]
+
+low_b2  = 1.00 .&gt;= ds_betas[3][:,5]
+high_b2 = 1.00 .&lt;= ds_betas[3][:,6]
+# sum(low_b2 &amp; high_b2)/ds_betas[4]
+
+all_coverage = vcat(sum(low_bo &amp; high_bo)/ds_betas[4],sum(low_b1 &amp; high_b1)/ds_betas[4],sum(low_b2 &amp; high_b2)/ds_betas[4])</code></pre><footer><hr/><a class="previous" href="command.html"><span class="direction">Previous</span><span class="title">References</span></a><a class="next" href="example.html"><span class="direction">Next</span><span class="title">sAUC in R</span></a></footer></article></body></html>

@@ -19,5 +19,9 @@ calculate_auc_simulation(ya, yb)
 
 
 ```@docs
-simulate_one_predictor(;iter = 500, m = 100, p = 120)
+simulate_one_predictor(iter = 500, m = 100, p = 120)
+```
+
+```@docs
+coefs_table(mf, lo, up, betass, std_errors)
 ```

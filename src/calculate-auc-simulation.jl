@@ -1,8 +1,7 @@
-
 """
   calculate_auc_simulation(ya, yb)
 
-  This function takes two DataArrays `ya` and `yb` and calculates variance of predicted AUC,
+  This function takes two DataArray arguments `ya` and `yb` and calculates variance of predicted AUC,
   logit of predicted AUC, and variance of logit of predicted AUC responses passed.
 """
 

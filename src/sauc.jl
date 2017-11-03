@@ -1,17 +1,20 @@
 """
-  SemiparametricAUC.semiparametricAUC(model_formula = y ~ x1, treatment_group = :group, data = fasd)
+  semiparametricAUC(model_formula, treatment_group, data)
 
   This function is used to fit semiparametric AUC regression model specified by
   giving a formula object of response and covariates and a separate argument of treatment
   group. It will convert variables other than response into factors, estimate model parameters,
   and display results.
-  
+
+  This function takes a formula object `model_formula` with response and covariates such as {response ~ x1 + x2},
+  group argument `treatment_group`, which is treatment group for which a comparision is to be made, and 
+  a data argument `data` which is a DataFrame object that contains variables needed for the analysis.
 """
 semiparametricAUC(model_formula = y ~ x1, treatment_group = :group, data = fasd)
 
 function semiparametricAUC(; model_formula::DataFrames.Formula = throw(ArgumentError("Argument model_formula is missing")),
   treatment_group::Symbol = throw(ArgumentError("Argument treatment_group is missing")),
-  data::DataFrames.DataFrame = throw(ArgumentError("Argument data is missing")))
+    data::DataFrames.DataFrame = throw(ArgumentError("Argument data is missing")))
   # fasd = DataFrames.readtable(joinpath(Pkg.dir("SemiparametricAUC"), "data/fasd.csv"))
   # model_formula = y ~ x1 + x2
   # treatment_group = :group
@@ -34,11 +37,11 @@ function semiparametricAUC(; model_formula::DataFrames.Formula = throw(ArgumentE
   input_treatment = Symbol(treatment_group)
   group_covariates = vcat(input_covariates, input_treatment)
 
-  if (sum([isa(data[:,i], DataFrames.PooledDataArray) for i in group_covariates]) == 0)
-    error("Please put response and input as formula. For example, response ~ x1 + x2")
-  else
-      println("Great")
-  end
+  # if (sum([isa(data[:,i], DataFrames.PooledDataArray) for i in group_covariates]) == 0)
+  #   error("Please put response and input as formula. For example, response ~ x1 + x2")
+  # else
+  #     println("Great")
+  # end
 
   print_with_color(:red,"Data are being analyzed. Please, be patient.\n\n")
   # split by factors
@@ -101,19 +104,11 @@ function semiparametricAUC(; model_formula::DataFrames.Formula = throw(ArgumentE
   std_error = sqrt(var_betas)
   betas = ztauz * Z' * tau * gamma1
 
-  threshold = Distributions.quantile(Normal(), 0.975)
+  threshold = Distributions.quantile(Distributions.Normal(), 0.975)
 
   lo = betas - threshold*std_error
   up = betas + threshold*std_error
   ci = hcat(betas,lo,up)
 
-  function tbl_coefs(betass = betas, std_errors = std_error)
-    zz = betass ./ std_errors
-    result = (StatsBase.CoefTable(hcat(round(betass,4),lo,up,round(std_errors,4),round(zz,4),2.0 * ccdf(Normal(), abs.(zz))),
-               ["Estimate","2.5%","97.5%","Std.Error","t value", "Pr(>|t|)"],
-             ["$i" for i = coefnames(mf)], 4))
-    # coefnames(mf)
-    return(result)
-  end
-  return(tbl_coefs())
+  return(SemiparametricAUC.coefs_table(mf = mf, lo = lo, up = up, betass = betas, std_errors = std_error))
 end

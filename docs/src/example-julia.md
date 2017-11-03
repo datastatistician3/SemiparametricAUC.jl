@@ -19,7 +19,7 @@ Note that the value of $\large \pi$ greater than .5 means that women in the PG h
 
 We first fit an AUC regression model including both main effects of the covariates.  Note that the main effects of the covariates in fact represented their interactions with the GROUP variable, which is different than the linear or generalized linear model frame.  The reason is that the GROUP variable is involved in defining the AUC.  Tables below present the parameter estimates, SEs, p-values, and 95% CIs for model with one and two covariates.  Because parameter $\beta_2$ was not significantly different from 0, we dropped OVITAMIN and fit another model including only the SMOKE main effect.Table below shows a significant interaction between SMOKE and GROUP because the SMOKE was statistically significant (95% CI: (0.05, 1.47)). Therefore, the final model was 
 
-$$logit(\hat{\pi}_{Smoke}) = \hat{\beta_0} + \hat{\beta_1}*I(Smoke =Yes)$$.  
+$$logit(\hat{\pi}_{Smoke}) = \hat{\beta_0} + \hat{\beta_1}*I(Smoke =Yes).$$  
 
 Because the interaction between SMOKE and GROUP was significant, we need to use AUC as a measure of the GROUP effect on CHANGE_DRINK for smokers and non-smokers separately using following formula for example for smokers;
 

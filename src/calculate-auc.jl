@@ -1,10 +1,10 @@
-# "Calcualtes AUC related estimates"
 """
   calculate_auc(ya, yb)
 
-  This function takes two DataArrays `ya` and `yb` and calculates variance of predicted AUC,
-  logit of predicted AUC, and variance of logit of predicted AUC responses passed.
+  # "Calcualtes AUC related estimates"
 
+  This function takes two DataArray arguments `ya` and `yb` and calculates variance of predicted AUC,
+  logit of predicted AUC, and variance of logit of predicted AUC responses passed.
 """
 calculate_auc(ya = DataFrames.DataArray([2,3,4,3]), yb = DataFrames.DataArray([3,2,1,3,4,3]))
 

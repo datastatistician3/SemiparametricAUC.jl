@@ -9,11 +9,13 @@ using DataFrames
 import Base: log, mean, var, zeros, length, isa, values, sort, inv, diagm, sqrt, diag,hcat
 
 include("calculate-auc.jl")
+include("coef-table.jl")
 include("sauc.jl")
 include("calculate-auc-simulation.jl")
 include("simulation-one-predictor.jl")
 
 export calculate_auc
+export coefs_table
 export semiparametricAUC
 export calculate_auc_simulation
 export simulate_one_predictor

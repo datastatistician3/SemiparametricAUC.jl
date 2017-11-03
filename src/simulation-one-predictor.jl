@@ -1,13 +1,12 @@
-
 """
   simulate_one_predictor(iter, m, p)
 
-  It asks for number of iterations to be run, number of observations in treatment
-  and control groups for the simulation of Semiparametric AUC regression adjusting for one discrete
+  It asks for number of iterations `iter` to be run, number of observations `m` in treatment
+  and control groups `p` for the simulation of Semiparametric AUC regression adjusting for one discrete
   covariate. In this simulation, true model parameters are as follows: β0 = 0.15, β1 = 0.50, β2 = 1.
 
 """
-simulate_one_predictor(;iter = 500, m = 100, p = 120)
+simulate_one_predictor(iter = 500, m = 100, p = 120)
 
 function simulate_one_predictor(;iter = 500, m = 100, p = 120)
     iter = iter

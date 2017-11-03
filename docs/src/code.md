@@ -3,13 +3,13 @@
 ## calculate_auc
 
 ```julia
-"Calcualtes AUC related estimates"
 """
   calculate_auc(ya, yb)
 
-  This function takes two DataArrays `ya` and `yb` and calculates variance of predicted AUC,
-  logit of predicted AUC, and variance of logit of predicted AUC responses passed.
+  # "Calcualtes AUC related estimates"
 
+  This function takes two DataArray arguments `ya` and `yb` and calculates variance of predicted AUC,
+  logit of predicted AUC, and variance of logit of predicted AUC responses passed.
 """
 calculate_auc(ya = DataFrames.DataArray([2,3,4,3]), yb = DataFrames.DataArray([3,2,1,3,4,3]))
 
@@ -53,19 +53,22 @@ calculate_auc(ya = DataFrames.DataArray([2,3,4,5]), yb = DataFrames.DataArray([2
 
 ```julia
 """
-  SemiparametricAUC.semiparametricAUC(model_formula = y ~ x1, treatment_group = :group, data = fasd)
+  semiparametricAUC(model_formula, treatment_group, data)
 
   This function is used to fit semiparametric AUC regression model specified by
   giving a formula object of response and covariates and a separate argument of treatment
   group. It will convert variables other than response into factors, estimate model parameters,
   and display results.
 
+  This function takes a formula object `model_formula` with response and covariates such as {response ~ x1 + x2},
+  group argument `treatment_group`, which is treatment group for which a comparision is to be made, and
+  a data argument `data` which is a DataFrame object that contains variables needed for the analysis.
 """
 semiparametricAUC(model_formula = y ~ x1, treatment_group = :group, data = fasd)
 
 function semiparametricAUC(; model_formula::DataFrames.Formula = throw(ArgumentError("Argument model_formula is missing")),
   treatment_group::Symbol = throw(ArgumentError("Argument treatment_group is missing")),
-  data::DataFrames.DataFrame = throw(ArgumentError("Argument data is missing")))
+    data::DataFrames.DataFrame = throw(ArgumentError("Argument data is missing")))
   # fasd = DataFrames.readtable(joinpath(Pkg.dir("SemiparametricAUC"), "data/fasd.csv"))
   # model_formula = y ~ x1 + x2
   # treatment_group = :group
@@ -88,11 +91,11 @@ function semiparametricAUC(; model_formula::DataFrames.Formula = throw(ArgumentE
   input_treatment = Symbol(treatment_group)
   group_covariates = vcat(input_covariates, input_treatment)
 
-  if (sum([isa(data[:,i], DataFrames.PooledDataArray) for i in group_covariates]) == 0)
-    error("Please put response and input as formula. For example, response ~ x1 + x2")
-  else
-      println("Great")
-  end
+  # if (sum([isa(data[:,i], DataFrames.PooledDataArray) for i in group_covariates]) == 0)
+  #   error("Please put response and input as formula. For example, response ~ x1 + x2")
+  # else
+  #     println("Great")
+  # end
 
   print_with_color(:red,"Data are being analyzed. Please, be patient.\n\n")
   # split by factors
@@ -155,21 +158,13 @@ function semiparametricAUC(; model_formula::DataFrames.Formula = throw(ArgumentE
   std_error = sqrt(var_betas)
   betas = ztauz * Z' * tau * gamma1
 
-  threshold = Distributions.quantile(Normal(), 0.975)
+  threshold = Distributions.quantile(Distributions.Normal(), 0.975)
 
   lo = betas - threshold*std_error
   up = betas + threshold*std_error
   ci = hcat(betas,lo,up)
 
-  function tbl_coefs(betass = betas, std_errors = std_error)
-    zz = betass ./ std_errors
-    result = (StatsBase.CoefTable(hcat(round(betass,4),lo,up,round(std_errors,4),round(zz,4),2.0 * ccdf(Normal(), abs.(zz))),
-               ["Estimate","2.5%","97.5%","Std.Error","t value", "Pr(>|t|)"],
-             ["$i" for i = coefnames(mf)], 4))
-    # coefnames(mf)
-    return(result)
-  end
-  return(tbl_coefs())
+  return(SemiparametricAUC.coefs_table(mf = mf, lo = lo, up = up, betass = betas, std_errors = std_error))
 end
 ```
 
@@ -184,7 +179,7 @@ semiparametricAUC(model_formula = y ~ x1, treatment_group = :group, data = fasd)
 """
   calculate_auc_simulation(ya, yb)
 
-  This function takes two DataArrays `ya` and `yb` and calculates variance of predicted AUC,
+  This function takes two DataArray arguments `ya` and `yb` and calculates variance of predicted AUC,
   logit of predicted AUC, and variance of logit of predicted AUC responses passed.
 """
 
@@ -230,8 +225,8 @@ calculate_auc_simulation(ya = DataFrames.DataArray([2,3,4,3]), yb = DataFrames.D
 """
   simulate_one_predictor(iter, m, p)
 
-  It asks for number of iterations to be run, number of observations in treatment
-  and control groups for the simulation of Semiparametric AUC regression adjusting for one discrete
+  It asks for number of iterations `iter` to be run, number of observations `m` in treatment
+  and control groups `p` for the simulation of Semiparametric AUC regression adjusting for one discrete
   covariate. In this simulation, true model parameters are as follows: β0 = 0.15, β1 = 0.50, β2 = 1.
 
 """
@@ -295,4 +290,32 @@ end
 #### Example
 ```julia
 simulate_one_predictor(iter = 500, m = 100, p = 120)
+```
+
+```julia
+import SemiparametricAUC: simulate_one_predictor
+
+ds_betas = @time simulate_one_predictor(iter = 500, m = 120, p = 100)
+@time simulate_one_predictor(iter = 1000, m = 220, p = 200)
+@time simulate_one_predictor(iter = 1000, m = 400, p = 300)
+@time simulate_one_predictor(iter = 100000, m = 120, p = 100)
+
+meanbeta = DataFrames.colwise(mean, DataFrames.DataFrame(ds_betas[1])) # mean betas
+meanvar = DataFrames.colwise(var, DataFrames.DataFrame(ds_betas[2]))  # mean variances
+meansd = DataFrames.colwise(sqrt, DataFrames.DataFrame(ds_betas[2]))
+
+#Calculating 95% CI coverage
+low_bo  = 0.15 .>= ds_betas[3][:,1]
+high_bo = 0.15 .<= ds_betas[3][:,2]
+# sum(low_bo & high_bo)/ds_betas[4]
+
+low_b1  = 0.50 .>= ds_betas[3][:,3]
+high_b1 = 0.50 .<= ds_betas[3][:,4]
+# sum(low_b1 & high_b1)/ds_betas[4]
+
+low_b2  = 1.00 .>= ds_betas[3][:,5]
+high_b2 = 1.00 .<= ds_betas[3][:,6]
+# sum(low_b2 & high_b2)/ds_betas[4]
+
+all_coverage = vcat(sum(low_bo & high_bo)/ds_betas[4],sum(low_b1 & high_b1)/ds_betas[4],sum(low_b2 & high_b2)/ds_betas[4])
 ```
