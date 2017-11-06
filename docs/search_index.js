@@ -173,7 +173,7 @@ var documenterSearchIndex = {"docs": [
     "page": "References",
     "title": "SemiparametricAUC.coefs_table",
     "category": "Method",
-    "text": "coef_table(mf,lo, up, betass, std_errors)\n\nThis function takes a ModelFrame object mf, numeric arguments lo, up, betass estimates and std_errors (beta's   standard errors, returns a table with model estimates, 95% CI, and p-values.\n\n\n\n"
+    "text": "coefs_table(mf,lo, up, betass, std_errors)\n\nThis function takes a ModelFrame object mf, numeric arguments lo, up, betass estimates and std_errors (beta's   standard errors, returns a table with model estimates, 95% CI, and p-values.\n\n\n\n"
 },
 
 {

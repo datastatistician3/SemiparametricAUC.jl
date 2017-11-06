@@ -1,5 +1,5 @@
 """
-  coef_table(mf,lo, up, betass, std_errors)
+  coefs_table(mf,lo, up, betass, std_errors)
 
   This function takes a `ModelFrame` object `mf`, numeric arguments `lo`, `up`, `betass` estimates and `std_errors` (beta's
   standard errors, returns a table with model estimates, 95% CI, and p-values.
