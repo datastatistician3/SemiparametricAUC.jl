@@ -96,7 +96,6 @@ function semiparametricAUC(; model_formula::DataFrames.Formula = throw(ArgumentE
   mf = ModelFrame(DataFrames.Terms(model_formula), df_from_tuple)
   mm = ModelMatrix(mf)
 
-  coefnames(mf)
   Z = mm.m
   tau  =  diagm([1/i for i in var_logitauchat])
   ztauz = inv(Z' * tau * Z)
