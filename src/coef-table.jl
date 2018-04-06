@@ -12,9 +12,15 @@ function coefs_table(; mf = throw(ArgumentError("mf is missing")),
    up = throw(ArgumentError("up is missing")),
    betass = throw(ArgumentError("betass is missing")),
    std_errors = throw(ArgumentError("std_errors is missing")))
-  zz = betass ./ std_errors
-  result = (StatsBase.CoefTable(hcat(round(betass,4),lo,up,round(std_errors,4),round(zz,4),2.0 * Distributions.ccdf(Distributions.Normal(), abs.(zz))),
-             ["Estimate","2.5%","97.5%","Std.Error","t value", "Pr(>|t|)"],
-           ["$i" for i = coefnames(mf)], 4))
+   zz = betass ./ std_errors
+   result = (StatsBase.CoefTable(hcat(round(betass,4),
+              lo,
+              up,
+              round(std_errors,4),
+              round(zz,4),
+              2.0 * Distributions.ccdf(Distributions.Normal(), 
+              abs.(zz))),
+              ["Estimate","2.5%","97.5%","Std.Error","t value", "Pr(>|t|)"],
+              ["$i" for i = coefnames(mf)], 4))
   return(result)
 end
